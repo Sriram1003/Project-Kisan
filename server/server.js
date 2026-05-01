@@ -3,27 +3,34 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const analyzeRoute = require('./routes/analyze');
 
-dotenv.config({ path: '../.env' });
+// Load .env in local development only — on Render, env vars are set via dashboard
+dotenv.config({ path: '../.env' });   // local: reads from project root .env
+dotenv.config();                       // fallback: reads from server/.env if present
 
-// Startup Validation
+// Startup Validation (warn, don't crash — Render env vars may load after boot)
 const REQUIRED_KEYS = ['VITE_OPENWEATHER_API_KEY', 'VITE_CROP_API_KEY', 'VITE_MANDI_API_KEY'];
 REQUIRED_KEYS.forEach(key => {
   if (!process.env[key]) {
-    console.error(`❌ CRITICAL ERROR: Missing ${key} in .env file.`);
-    process.exit(1);
+    console.warn(`⚠️  WARNING: Missing ${key} — some features may not work.`);
   }
 });
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+// CORS — allow any origin so Netlify frontend can reach this backend
 app.use(cors());
 app.use(express.json());
 
 const { getMandiPrices, getUniversalMandiIntelligence } = require('./services/mandiService');
 const { getWeather } = require('./services/weatherService');
 
-// Routes
+// ── Health Check (Render pings this to keep the service alive) ──────────────
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// ── API Routes ──────────────────────────────────────────────────────────────
 app.use('/api/analyze', analyzeRoute);
 
 app.get('/api/mandi/universal', async (req, res, next) => {
@@ -56,7 +63,7 @@ app.get('/api/weather', async (req, res, next) => {
   }
 });
 
-// Global Error Handler
+// ── Global Error Handler ────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error("Server Error:", err.message);
   res.status(err.response?.status || 500).json({
