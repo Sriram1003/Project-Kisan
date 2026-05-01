@@ -1,117 +1,224 @@
-# Project Kisan - AI Farmer Assistant
+# 🌾 Project Kisan — AI Agriculture Assistant
 
-A modern React application that helps farmers with crop diagnosis, market analysis, and government scheme information using AI-powered services.
+An intelligent, mobile-first web application that helps farmers and agri-enthusiasts with **crop disease diagnosis, mandi price analysis, weather insights, and AI-driven crop advisory**.
 
-## Features
+🔗 Live Demo: https://project-kisan.netlify.app/
 
-### 🌱 Crop Diagnosis
-- Upload plant leaf images for disease detection
-- AI-powered analysis using Google Gemini
-- Actionable remedies for small-scale farmers
+---
 
-### 📈 Market Analysis
-- Real-time market price queries
-- Voice input support
-- Market trend analysis using Groq API
+## 🚀 Features
 
-### 🏛️ Government Schemes
-- Information about agricultural subsidies
-- Telangana-specific scheme details
-- Direct links to government portals
+### 🌿 Crop Diagnosis
 
-## Technology Stack
+* Upload leaf images to detect plant diseases
+* Uses AI-based image analysis (Plant.id API)
+* Provides treatment suggestions and risk levels
 
-- **Frontend**: React 18 with TypeScript
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **APIs**: Google Gemini AI, Groq API
-- **Features**: Voice recognition, Text-to-speech
+### 📊 Mandi Intelligence
 
-## Setup Instructions
+* Real-time crop price lookup
+* Supports multiple vegetables and crops
+* Voice-enabled search (speech recognition)
 
-1. **Clone and Install**
-   ```bash
-   npm install
-   ```
+### 🌦️ Weather Insights
 
-2. **Configure API Keys**
-   Edit `src/services/apiService.ts` and replace the placeholder API keys:
-   ```typescript
-   const GEMINI_API_KEY = "your_gemini_api_key_here";
-   const GROQ_API_KEY = "your_groq_api_key_here";
-   ```
+* Live weather data using OpenWeather API
+* Displays temperature, humidity, wind, etc.
 
-3. **Get API Keys**
-   - **Gemini API**: Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - **Groq API**: Visit [Groq Console](https://console.groq.com/keys)
+### 💡 Crop Advisory
 
-4. **Run Development Server**
-   ```bash
-   npm run dev
-   ```
+* AI recommendations based on weather + crop data
+* Helps farmers decide optimal actions
 
-## Project Structure
+### 🎤 Voice Assistant
+
+* Speech-to-text input for search queries
+* Works across desktop and mobile browsers
+
+### 📱 Mobile-First UI
+
+* Fully responsive design
+* Optimized for low-end devices and mobile usage
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+
+* React + Vite
+* TypeScript
+* Tailwind CSS
+
+### Backend
+
+* Node.js + Express
+* REST APIs
+
+### APIs Used
+
+* Plant.id (Crop disease detection)
+* OpenWeatherMap (Weather data)
+* Mandi Price API (Market data)
+
+### Deployment
+
+* Frontend: Netlify
+* Backend: Render
+
+---
+
+## ⚙️ Environment Variables
+
+### Frontend (.env)
+
+```env
+VITE_BACKEND_URL=https://your-backend.onrender.com
+VITE_OPENWEATHER_API_KEY=your_key
+VITE_MANDI_API_KEY=your_key
+VITE_CROP_API_KEY=your_key
+```
+
+---
+
+### Backend (Render Environment Variables)
+
+```env
+OPENWEATHER_API=your_key
+PLANT_ID_API_KEY=your_key
+MANDI_API_KEY=your_key
+PORT=8000
+```
+
+---
+
+## 🖥️ Local Development
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/project-kisan.git
+cd project-kisan
+```
+
+---
+
+### 2. Setup Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+---
+
+### 3. Setup Backend
+
+```bash
+cd server
+npm install
+node server.js
+```
+
+---
+
+### 4. Access App
+
+Frontend:
 
 ```
-src/
-├── components/
-│   ├── common/           # Reusable components
-│   │   ├── LoadingButton.tsx
-│   │   ├── ResultDisplay.tsx
-│   │   ├── TextToSpeech.tsx
-│   │   └── VoiceInput.tsx
-│   ├── forms/            # Form components
-│   │   ├── ImageUpload.tsx
-│   │   └── TextInputForm.tsx
-│   ├── CropDiagnosis.tsx
-│   ├── GovernmentSchemes.tsx
-│   ├── Header.tsx
-│   ├── MarketAnalysis.tsx
-│   └── TabNavigation.tsx
-├── services/
-│   └── apiService.ts     # API integration
-├── types/
-│   └── index.ts          # TypeScript definitions
-└── App.tsx               # Main application
+http://localhost:5173
 ```
 
-## Features Overview
+Backend:
 
-### Voice Integration
-- Speech-to-text for query input
-- Text-to-speech for result reading
-- Browser-native Web Speech API
+```
+http://localhost:8000
+```
 
-### Image Processing
-- Drag-and-drop image upload
-- Image preview with removal option
-- Base64 encoding for API transmission
+---
 
-### Responsive Design
-- Mobile-first approach
-- Tailwind CSS for styling
-- Clean, modern interface
+## 🚀 Deployment
 
-### Error Handling
-- Comprehensive error messages
-- Loading states for all operations
-- Graceful API failure handling
+### 🔹 Frontend (Netlify)
 
-## Browser Compatibility
+1. Run:
 
-- Chrome/Edge: Full support
-- Firefox: Full support
-- Safari: Limited voice features
-- Mobile browsers: Core features supported
+```bash
+npm run build
+```
 
-## Contributing
+2. Upload `dist/` folder to Netlify
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+3. Add environment variable:
 
-## License
+```
+VITE_BACKEND_URL=https://your-backend.onrender.com
+```
 
-This project is open source and available under the MIT License.
+---
+
+### 🔹 Backend (Render)
+
+1. Create Web Service
+
+2. Configure:
+
+   * Build: `npm install`
+   * Start: `node server.js`
+   * Root directory: `server` (if applicable)
+
+3. Add environment variables
+
+4. Deploy and copy URL
+
+---
+
+## 🧠 Architecture
+
+```
+Frontend (React + Vite)
+        ↓
+Backend API (Node + Express)
+        ↓
+External APIs (Plant.id, OpenWeather, Mandi)
+```
+
+---
+
+## 🔐 Security Notes
+
+* API keys are stored in environment variables
+* No sensitive data exposed in frontend
+* Backend acts as secure proxy for API calls
+
+---
+
+## 📈 Future Improvements
+
+* ML-based price prediction
+* Multi-language support (Telugu/Hindi)
+* Offline mode (PWA)
+* Farmer chatbot assistant
+* Image history tracking
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, open an issue first.
+
+---
+
+## 📄 License
+
+MIT License
+
+---
+
+## 👨‍💻 Author
+
+Sriram
+AI Developer | Full Stack Enthusiast
+
+---
