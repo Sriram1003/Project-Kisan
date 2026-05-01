@@ -20,7 +20,7 @@ exports.getUniversalMandiIntelligence = async (userCrop = null) => {
   }
 
   // Fetch all records for Telangana to analyze the whole market
-  const url = `https://api.data.gov.in/resource/${RESOURCE_ID}?api-key=${process.env.market_prices_API}&format=json&limit=1000&filters[State]=Telangana`;
+  const url = `https://api.data.gov.in/resource/${RESOURCE_ID}?api-key=${process.env.VITE_MANDI_API_KEY}&format=json&limit=1000&filters[State]=Telangana`;
 
   try {
     const response = await axios.get(url);
@@ -117,7 +117,7 @@ exports.getMandiPrices = async (commodity) => {
     return cached.data;
   }
 
-  const url = `https://api.data.gov.in/resource/${RESOURCE_ID}?api-key=${process.env.market_prices_API}&format=json&limit=500&filters[State]=Telangana&filters[Commodity]=${encodeURIComponent(formattedCommodity)}`;
+  const url = `https://api.data.gov.in/resource/${RESOURCE_ID}?api-key=${process.env.VITE_MANDI_API_KEY}&format=json&limit=500&filters[State]=Telangana&filters[Commodity]=${encodeURIComponent(formattedCommodity)}`;
 
   try {
     const response = await axios.get(url);

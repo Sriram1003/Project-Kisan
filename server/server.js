@@ -6,7 +6,7 @@ const analyzeRoute = require('./routes/analyze');
 dotenv.config({ path: '../.env' });
 
 // Startup Validation
-const REQUIRED_KEYS = ['Openweather_API', 'Plant.id_API_key', 'market_prices_API'];
+const REQUIRED_KEYS = ['VITE_OPENWEATHER_API_KEY', 'VITE_CROP_API_KEY', 'VITE_MANDI_API_KEY'];
 REQUIRED_KEYS.forEach(key => {
   if (!process.env[key]) {
     console.error(`❌ CRITICAL ERROR: Missing ${key} in .env file.`);

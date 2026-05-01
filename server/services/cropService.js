@@ -4,8 +4,8 @@ const FormData = require('form-data');
 exports.analyzeCrop = async (imageBuffer, filename) => {
   console.log("--- DEBUG: Starting crop.health API call ---");
   
-  if (!process.env['Plant.id_API_key']) {
-    console.error("DEBUG: Plant.id_API_key is missing!");
+  if (!process.env.VITE_CROP_API_KEY) {
+    console.error("DEBUG: VITE_CROP_API_KEY is missing!");
     throw new Error("Missing API Key");
   }
   
@@ -18,7 +18,7 @@ exports.analyzeCrop = async (imageBuffer, filename) => {
     const response = await axios.post('https://crop.kindwise.com/api/v1/identification', form, {
       headers: { 
         ...form.getHeaders(),
-        'Api-Key': process.env['Plant.id_API_key']
+        'Api-Key': process.env.VITE_CROP_API_KEY
       },
       timeout: 30000
     });

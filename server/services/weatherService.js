@@ -9,7 +9,7 @@ exports.getWeather = async (district = 'Karimnagar') => {
   }
 
   try {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${district},IN&appid=${process.env.Openweather_API}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${district},IN&appid=${process.env.VITE_OPENWEATHER_API_KEY}&units=metric`;
     const response = await axios.get(url);
     
     console.log("DEBUG: OpenWeather API Response:", JSON.stringify(response.data));

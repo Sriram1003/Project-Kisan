@@ -65,12 +65,18 @@ function sanitizeAIOutput(text: string): string {
   // Remove markdown code blocks if AI wraps the JSON
   return text.replace(/```json\n?|```/g, '').trim();
 }
-
 /**
  * AI SERVICE IMPLEMENTATION
  */
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const GROQ_KEY = import.meta.env.VITE_GROQ_API_KEY;
+
+/**
+ * Backend URL — driven by environment variable.
+ * In production (Netlify): set VITE_BACKEND_URL=https://your-backend.onrender.com
+ * In local dev: falls back to http://localhost:8000
+ */
+const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000').replace(/\/$/, '');
 
 export const aiService = {
   async diagnose(prompt: string, image: File) {
@@ -118,17 +124,20 @@ export const aiService = {
   },
 
   async getMandiData(commodity: string) {
-    const url = `http://localhost:8000/api/mandi?commodity=${encodeURIComponent(commodity)}`;
+    const url = `${BACKEND_URL}/api/mandi?commodity=${encodeURIComponent(commodity)}`;
+    console.log('[API] Mandi request:', url);
     return await hardenedFetch(url, { method: 'GET' });
   },
 
   async getWeatherData(city: string) {
-    const url = `http://localhost:8000/api/weather?city=${encodeURIComponent(city)}`;
+    const url = `${BACKEND_URL}/api/weather?city=${encodeURIComponent(city)}`;
+    console.log('[API] Weather request:', url);
     return await hardenedFetch(url, { method: 'GET' });
   },
 
   async analyzeCrop(image: File, district?: string) {
-    const url = "http://localhost:8000/api/analyze";
+    const url = `${BACKEND_URL}/api/analyze`;
+    console.log('[API] Analyze request:', url);
     const formData = new FormData();
     formData.append('image', image);
     if (district) formData.append('district', district);
