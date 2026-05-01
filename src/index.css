@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;900&family=Inter:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --field-green: #2d6a4f;
+  --harvest-amber: #f4a261;
+  --soil-brown: #603808;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-[#fdfdfd] text-[#2d3436];
+}
+
+h1, h2, h3 {
+  font-family: 'Outfit', sans-serif;
+}
+
+.glass-panel {
+  @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+}
+
+.field-btn {
+  @apply transition-all duration-300 active:scale-95 shadow-lg hover:shadow-xl rounded-2xl;
+}
